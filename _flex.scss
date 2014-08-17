@@ -1,0 +1,178 @@
+/***
+The MIT License (MIT)
+
+Copyright (c) 2014 Therese Seares <therese.seares@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+***/
+
+// Convenience mixins to prefix attributes and values
+@mixin prefix-attribute($attribute, $value) {
+    -webkit-#{$attribute}: #{$value};
+       -moz-#{$attribute}: #{$value};
+        -ms-#{$attribute}: #{$value};       
+            #{$attribute}: #{$value};
+}
+
+@mixin prefix-value($attribute, $value) {
+    #{$attribute}: -webkit-#{$value};
+    #{$attribute}:    -moz-#{$value};
+    #{$attribute}:     -ms-#{$value};    
+    #{$attribute}:         #{$value};
+}
+
+/*****************************************************
+    Flex container mixins at a glance:
+        display-flex
+        flex-direction
+        flex-wrap
+        flex-flow
+        justify-content
+        align-items
+        align-content
+*****************************************************/
+
+
+/***
+    DISPLAY-FLEX
+    Defines a flex container.
+    Enables a flex context for all its direct children.
+    $flex-type: flex | inline-flex
+***/
+@mixin display-flex($flex-type: flex) {
+    @include prefix-value(display, $flex-type);
+}
+
+/*** 
+    FLEX-DIRECTION
+    Defines main axis and the direction flex items are
+    layed-out in the flex container.
+    $direction: row | row-reverse | column | column-reverse
+***/
+@mixin flex-direction($direction: row) {
+    @include prefix-attribute(direction, $direction);
+}
+
+/***
+    FLEX-WRAP
+    Determines whether the container should wrap overflowing
+    flex items or not. Also determines direction if wrap is 
+    enabled.
+    $wrap: nowrap | wrap | wrap-reverse
+***/
+@mixin flex-wrap($wrap: nowrap) {
+    @include prefix-attribute(flex-wrap, $wrap);
+}
+
+/***
+    FLEX-FLOW
+    A shorthand for flex-direction and flex-wrap
+***/
+@mixin flex-flow($direction: row, $wrap: nowrap) {
+    @include prefix-attribute(flex-flow, $direction $wrap);
+}
+
+/***
+    JUSTIFY-CONTENT
+    Define what alignment flex items should use relative to the main axis.
+    $alignment: flex-start | flex-end | center | space-between | space-around
+***/
+@mixin justify-content($alignment: flex-start) {
+    @include prefix-attribute(justify-content, $alignment);
+}
+
+/***
+    ALIGN-ITEMS
+    Define what alignment flex items should use relative to cross axis.
+    $alignment: flex-start | flex-end | center | baseline | stretch
+***/
+@mixin align-items($alignment: flex-start) {
+    @include prefix-attribute(align-items, $alignment);
+}
+
+/***
+    ALIGN-CONTENT
+    Define what alignment flex items should use relative to cross axis when flex items create multiple lines
+    $alignment: flex-start | flex-end | center | space-between | space-around | stretch
+***/
+@mixin align-content($alignment: flex-start) {
+    @include prefix-attribute(align-content, $alignment);
+}
+
+
+/**************************************************************************
+    Flex item mixins at a glance:
+        flex-grow
+        flex-shrink
+        flex-basis
+        flex
+        align-self
+        *order: not included since it can be used right out of the box
+**************************************************************************/
+
+/***
+    FLEX-GROW
+    Defines how a flex item should grow relative to other items when necessary
+    $proportion: 0 | <number>
+    <number> negative numbers are invalid
+***/
+@mixin flex-grow($proportion: 0) {
+    @include prefix-attribute(flex-grow, $proportion);
+}
+
+/***
+    FLEX-SHRINK
+    Defines how a flex item should shrink relative to other items when necessary
+    $proportion: 1 | <number>
+    <number> negative numbers are invalid
+***/
+@mixin flex-shrink($proportion: 1) {
+    @include prefix-attribute(flex-shrink, $proportion);
+}
+
+
+/***
+    FLEX-BASIS
+    Defines default size of an item before remaining space is distributed
+    $width: auto | <width>
+***/
+@mixin flex-basis($width: auto) {
+    @include prefix-attribute(flex-basis, $width);
+}
+
+
+/***
+    FLEX
+    Shorthand for flex-grow, flex-shrink and flex-basis
+    Optional: flex-shrink, flex-basis
+    $length: 0 1 auto | $grow $shrink $basis
+***/
+@mixin flex($grow: 0, $shrink: 1, $basis: auto) {
+    @include prefix-attribute(flex, $grow $shrink $basis);
+}
+
+
+/***
+    ALIGN-SELF
+    Defines alignment for a flex item, overriding its flex container's align-items definition
+    $alignment: auto | flex-start | flex-end | center | baseline | stretch
+***/
+@mixin align-self($alignment: auto) {
+    @include prefix-attribute(align-self, $alignment);
+}
